@@ -100,7 +100,7 @@ public class ScoreCommand extends SequentialCommandGroup {
         if(isAuto){
             super.addCommands(new ParallelCommandGroup(getGrabberIntake(), getPathfindToPose()),
                                 new ParallelCommandGroup(getDriveInCommand(), getActuateCommand()), 
-                                getScoreCommand(), getPartialDeactuationCommand());
+                                getScoreCommand());
         }
         else{
             super.addCommands(getPathfindToPose(), 
@@ -224,33 +224,12 @@ public class ScoreCommand extends SequentialCommandGroup {
                         },
                         () -> { 
                             wrist.setMotorPosition(WristConstants.WristStates.STOW);
-                            if(Math.abs(wrist.getWristAngle() + 240 - WristConstants.WristStates.STOW) < W_TOLERANCE){ 
-                                elevator.setElevatorPosition(ElevatorConstants.ElevatorStates.STOW);
-
-                                Setpoint newSetpoint = getNextSetpoint(endPath);
-                                drivetrain.followSegment(newSetpoint);
-                            }
+                            elevator.setElevatorPosition(ElevatorConstants.ElevatorStates.STOW);
                         },
                         (interrupted) -> {},
                         () -> (Math.abs(elevator.getElevatorHeight() - ElevatorConstants.ElevatorStates.STOW) < 1.0) 
         );
         return backUp;
-    }
-
-    /** Gets a command to retract the wrist only. Used in autonomous. */
-    public Command getPartialDeactuationCommand(){
-        final Command retractWrist = new FunctionalCommand(
-            () -> {
-            },
-            () -> {
-                wrist.setMotorPosition(WristConstants.WristStates.STOW);
-            },
-            (interrupted) -> {},
-            () -> 
-                Math.abs(wrist.getWristAngle() + 240 - WristConstants.WristStates.STOW) < W_TOLERANCE
-            
-        );
-        return retractWrist;
     }
 
     /** Gets the prescore for a specific Pose2d*/

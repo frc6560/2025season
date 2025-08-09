@@ -17,16 +17,8 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
-// range of motion: 125.96 deg
-// GR: 1.5 --> motor spins 188.94 deg
 
 public class Climb extends SubsystemBase {
-    
-    // public enum State {
-    //     UP,
-    //     DOWN,
-    //     STATIC
-    // };
 
     // motors are linked up in reverse
     private TalonFX motor1;
@@ -60,11 +52,6 @@ public class Climb extends SubsystemBase {
         motor2.getConfigurator().apply(fxConfig);
         ntPos.setDouble(this.getEncoderPos());
         ntUseSoftlimits.setBoolean(true);
-
-        // this.state = State.STATIC;
-
-        // should be reset in up position
-        // resetEncoderPos();
     }
 
     @Override
@@ -106,9 +93,6 @@ public class Climb extends SubsystemBase {
             this.motor2.set(CLIMB_DOWN_PERCENT); } else {
                 stop();
             }
-        // } else {
-        //     this.state = State.STATIC;
-        // }
     }
 
     public void up() {
@@ -116,9 +100,6 @@ public class Climb extends SubsystemBase {
             this.motor1.set(CLIMB_UP_PERCENT);
             this.motor2.set(-CLIMB_UP_PERCENT); } else {
                 stop();
-                        }
-        // } else {
-        //     this.state = State.STATIC;
-        // }
+            }
     }
 }

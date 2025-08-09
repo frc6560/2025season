@@ -21,54 +21,6 @@
           "data": {
             "pathName": "4p pickup"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4 piece prescore2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4p second piece"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4p pickup 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4 piece prescore3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4p third piece"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4p pickup 3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4 piece prescore4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4p fourth piece"
-          }
         }
       ]
     }
