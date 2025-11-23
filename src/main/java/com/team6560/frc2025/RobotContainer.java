@@ -153,7 +153,7 @@ public class RobotContainer {
     driverXbox.b().onTrue(Commands.runOnce(() -> new IntakeCommand(wrist, elevator, drivebase, PickupLocations.RIGHT).schedule(), drivebase));
     driverXbox.y().onTrue(Commands.run(() -> drivebase.rotateCommand(2.0/3 * Math.PI)));
     driverXbox.x().onTrue(Commands.defer(() -> new AlgaeDescoreCommand(wrist, elevator, ballGrabber, drivebase,
-      DereefIndex.TOP_RIGHT
+      DereefIndex.FAR_LEFT
     , 
       ReefLevel.HIGH_BALL), 
       Set.of(wrist, elevator, ballGrabber, drivebase))
