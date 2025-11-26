@@ -150,7 +150,7 @@ public class RobotContainer {
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroNoAprilTagsGyro)));
     driverXbox.a().onTrue((Commands.runOnce(drivebase::resetOdometryToLimelight)));
-    driverXbox.b().onTrue(Commands.runOnce(() -> new IntakeCommand(wrist, elevator, drivebase, PickupLocations.RIGHT).schedule(), drivebase));
+    //driverXbox.b().onTrue(Commands.runOnce(() -> new IntakeCommand(wrist, elevator, drivebase, PickupLocations.RIGHT).schedule(), drivebase));
     driverXbox.y().onTrue(Commands.run(() -> drivebase.rotateCommand(2.0/3 * Math.PI)));
     driverXbox.x().onTrue(Commands.defer(() -> new AlgaeDescoreCommand(wrist, elevator, ballGrabber, drivebase,
       DereefIndex.FAR_LEFT
@@ -158,10 +158,15 @@ public class RobotContainer {
       ReefLevel.HIGH_BALL), 
       Set.of(wrist, elevator, ballGrabber, drivebase))
       .finallyDo((interrupted) -> locationManager.reset()));
-
-    
-
+    driverXbox.b().onTrue(Commands.defer(() -> new AlgaeDescoreCommand(wrist, elevator, ballGrabber, drivebase,
+      DereefIndex.FAR_LEFT
+    , 
+      ReefLevel.LOW_BALL), 
+      Set.of(wrist, elevator, ballGrabber, drivebase))
+      .finallyDo((interrupted) -> locationManager.reset()));
+  
   }
+
 
   public void elevL4BeginTele() { // values for auto (don't touch!)
     elevator.setElevatorPosition(17.65);

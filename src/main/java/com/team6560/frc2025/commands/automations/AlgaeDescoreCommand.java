@@ -129,17 +129,18 @@ public class AlgaeDescoreCommand extends SequentialCommandGroup {
                 // Move.
                 Setpoint newSetpoint = getNextSetpoint(path);
                 drivetrain.followSegment(newSetpoint, targetPose);
-                if(drivetrain.getPose().getTranslation().getDistance(targetPose.getTranslation()) < 0.05
-                    && Math.abs(drivetrain.getPose().getRotation().getRadians() - targetPose.getRotation().getRadians()) < 0.025
+                if(drivetrain.getPose().getTranslation().getDistance(targetPose.getTranslation()) < 0.087
+                    && Math.abs(drivetrain.getPose().getRotation().getRadians() - targetPose.getRotation().getRadians()) < 0.067
                 ){ //0.02 
                     // Stop.
                     drivetrain.drive(new ChassisSpeeds(0, 0, 0));
-                    System.out.println("Finished move");
+                    
                 }
             },
             (interrupted) -> {},
-            () -> drivetrain.getPose().getTranslation().getDistance(targetPose.getTranslation()) < 0.02
-            && Math.abs(drivetrain.getPose().getRotation().getRadians() - targetPose.getRotation().getRadians()) < 0.017
+            () -> drivetrain.getPose().getTranslation().getDistance(targetPose.getTranslation()) < 0.087
+
+            && Math.abs(drivetrain.getPose().getRotation().getRadians() - targetPose.getRotation().getRadians()) < 0.067
         );
         return followPath;
 
@@ -157,6 +158,7 @@ public class AlgaeDescoreCommand extends SequentialCommandGroup {
         final Command driveToPrescore = getFollowPath(path, 2.1).until(
             () -> drivetrain.getPose().getTranslation().getDistance(getPrescore(targetPose).getTranslation()) < 0.2
         );
+        System.out.println("finished drive");
         return driveToPrescore;
     }
 
@@ -250,7 +252,7 @@ public class AlgaeDescoreCommand extends SequentialCommandGroup {
         targetPoses.put(DereefIndex.FAR_RIGHT, new Pose2d(14.412, 3.613, Rotation2d.fromDegrees(0)));
         targetPoses.put(DereefIndex.TOP_RIGHT, new Pose2d(14.123, 4.913, Rotation2d.fromDegrees(60)));
         targetPoses.put(DereefIndex.TOP_LEFT, new Pose2d(12.868, 5.368, Rotation2d.fromDegrees(120)));
-        targetPoses.put(DereefIndex.FAR_LEFT, new Pose2d(3.189, 4.403, Rotation2d.fromDegrees(180)));
+        targetPoses.put(DereefIndex.FAR_LEFT, new Pose2d(3.24, 4.514, Rotation2d.fromDegrees(180)));
         targetPoses.put(DereefIndex.BOTTOM_LEFT, new Pose2d(12.06, 3.075, Rotation2d.fromDegrees(240)));
 
         Pose2d tagPose = targetPoses.get(location);
