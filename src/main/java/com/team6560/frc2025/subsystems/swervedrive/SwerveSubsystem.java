@@ -123,7 +123,9 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.replaceSwerveModuleFeedforward(driveFF);
     setMotorBrake(true);
     setupPathPlanner();
-
+    m_pidControllerTheta.setIZone(0.2);
+    m_pidControllerX.setIZone(0.25);
+    m_pidControllerY.setIZone(0.25);
     swerveDrive.setVisionMeasurementStdDevs(visionStdDevs);
   }
 
@@ -265,9 +267,7 @@ public class SwerveSubsystem extends SubsystemBase
     m_pidControllerTheta.enableContinuousInput(-Math.PI, Math.PI);
     Pose2d pose = getPose();
     swerveDrive.field.getObject("TargetPose").setPose(targetPose);
-    m_pidControllerTheta.setIZone(0.2);
-    m_pidControllerX.setIZone(0.25);
-    m_pidControllerY.setIZone(0.25);
+   
 
     ChassisSpeeds targetSpeeds = new ChassisSpeeds( 
       setpoint.vx + m_pidControllerX.calculate(pose.getX(), setpoint.x), 
