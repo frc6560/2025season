@@ -21,6 +21,7 @@ import com.team6560.frc2025.utility.Setpoint;
 
 import com.team6560.frc2025.utility.Enums.*;
 
+import choreo.auto.AutoFactory;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -59,6 +60,7 @@ public class AlgaeDescoreCommand extends SequentialCommandGroup {
     private Wrist wrist;
     private Elevator elevator;
     private BallGrabber grabber;
+    private final AutoFactory autoFactory;
 
     // Locations
     DereefIndex location;
@@ -71,7 +73,7 @@ public class AlgaeDescoreCommand extends SequentialCommandGroup {
 
     /** Constructor for our scoring command */
     public AlgaeDescoreCommand(Wrist wrist, Elevator elevator, BallGrabber grabber,SwerveSubsystem drivetrain,
-    DereefIndex location, ReefLevel level) {
+    DereefIndex location, ReefLevel level, AutoFactory autoFactory) {
 
         this.drivetrain = drivetrain;
         this.wrist = wrist;
@@ -80,6 +82,8 @@ public class AlgaeDescoreCommand extends SequentialCommandGroup {
 
         this.location = location;
         this.level = level;
+
+        this.autoFactory = autoFactory;
 
         setTargets();
         
@@ -234,13 +238,6 @@ public class AlgaeDescoreCommand extends SequentialCommandGroup {
         );
     }
 
-    public Pose2d get_backpuPose2d(Pose2d targetPose){
-        return new Pose2d(
-            targetPose.getX() + 0.5 * Math.cos(targetPose.getRotation().getRadians()), 
-            targetPose.getY() + 0.5 * Math.sin(targetPose.getRotation().getRadians()), 
-            targetPose.getRotation()
-        );
-    }
 
     /** Sets the target for the robot, including target pose, elevator height, and arm angle */
     private void setTargets() {
